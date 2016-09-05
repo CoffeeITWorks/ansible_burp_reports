@@ -1,0 +1,7 @@
+---
+# file: roles/burp_reports/vars/Ubuntu.yml
+
+### PACKAGES
+sys_packages:
+  - python3-pip
+  - python3-dev

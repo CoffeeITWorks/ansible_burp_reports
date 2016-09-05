@@ -1,0 +1,20 @@
+---
+# file: roles/burp_reports/tasks/main.yml
+
+- include: multi_os.yml
+  tags:
+    - config_burp_reports_cron
+    - test_burp_reports
+
+- name: install role packages
+  package: name={{ sys_packages| join(',') }} state=present
+
+- include: install.yml
+
+- include: cron.yml
+  tags:
+    - config_burp_reports_cron
+
+- include: reports_tests.yml
+  tags:
+    - test_burp_reports

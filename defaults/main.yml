@@ -1,0 +1,37 @@
+---
+# file: roles/burp_reports/defaults/main.yml
+
+
+### BURP REPORT
+burpui_apiurl: http://admin:admin@localhost:5000/api/
+
+burp_report_days_outdated: 25
+burp_report_conf: /etc/burp/burp-reports.conf
+
+burp_conf_user: 'root'
+burp_conf_group: 'root'
+
+# https://github.com/pablodav/burp_server_reports#usage
+burp_report_inventory_input: None
+burp_report_inventory_output: None
+
+# http://docs.ansible.com/ansible/cron_module.html
+report_outdated_special_time: 'weekly'
+report_inventory_special_time: 'weekly'
+
+burp_report_emails_notes: 'some useful notes to change'
+burp_report_emails_to: root@localhost
+burp_report_emails_from: burpserver@localhost
+burp_excluded_clients: 'agent,monitor'
+
+smtp_relay: 'localhost'
+smtp_port: 25
+smtp_mode: 'normal'
+smtp_login: ''
+smtp_password: ''
+
+## burp-reports installation packages: 
+# doc: https://github.com/pablodav/burp_server_reports
+
+burp_reports_pip_packages: 
+  - burp_reports

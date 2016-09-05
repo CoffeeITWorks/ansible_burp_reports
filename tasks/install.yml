@@ -1,0 +1,20 @@
+---
+# file roles/burp_reports/tasks/scripts.yml
+
+# Install burp_reports
+
+- name: install role pip packages
+  pip:
+    name: "{{ item }}"
+    executable: "pip3"
+    state: latest
+  with_items: "{{ burp_reports_pip_packages }}"
+
+# Copy burp report configuration file
+- name: set burp-reports.conf file
+  template:
+    src: 'burp-reports.conf.j2'
+    dest: '{{ burp_report_conf }}'
+    owner: '{{ burp_conf_user }}'
+    group: '{{ burp_conf_group }}'
+    mode: 644
