@@ -5,6 +5,11 @@
 # Adding > /dev/null to commands to supress stdout normal emails to root.
 # it will send only emails to root if there is some stderr
 
+- name: ensure /etc/cron.d exists
+  file:
+    path: '/etc/cron.d'
+    state: directory
+
 - cron: name='burp-server-reports outdated report'
         job='burp-reports -c {{ burp_report_conf }} --report email_outdated'
         user='{{ burp_conf_user }}'

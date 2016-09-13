@@ -1,11 +1,14 @@
-Nombre del rol
-==============
+[![Build Status](https://travis-ci.org/CoffeeITWorks/ansible_burp_reports.svg?branch=master)](https://travis-ci.org/CoffeeITWorks/ansible_burp_reports)
+
+Role Name
+=========
 Burp_reports installation and configuration role
 
 Requirements
 --------------
 
 Burp-ui working and var defined in your group_vars/group
+Recommended: ansible_burpui_server and ansible_burp2_server
 
 Variables
 ---------
