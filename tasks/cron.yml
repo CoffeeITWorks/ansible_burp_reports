@@ -25,14 +25,15 @@
         state=present
   when: burp_report_inventory_input and burp_report_inventory_output
 
+# Removed for compatibility with xenial
 # Enable cron to start up on boot
-- name: ensure cron is enabled
-  service:
-    name: cron
-    enabled: yes
+#- name: ensure cron is enabled
+#  service:
+#    name: cron
+#    enabled: yes
 
 # Start cron server service
-- name: ensure cron is started
-  service:
-    name: cron
-    state: started
+#- name: ensure cron is started
+#  service:
+#    name: cron
+#    state: started
