@@ -3,7 +3,7 @@
 
 ### PACKAGES
 sys_packages:
-  - python3-pip
-  - python3-dev
+  - python-pip
+  - python-devel
 
-python_exec: pip3
+python_exec: pip

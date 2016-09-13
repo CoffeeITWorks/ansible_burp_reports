@@ -6,9 +6,14 @@
 - name: install role pip packages
   pip:
     name: "{{ item }}"
-    executable: "pip3"
+    executable: "{{ python_exec }}"
     state: latest
   with_items: "{{ burp_reports_pip_packages }}"
+
+- name: "Ensure {{ burp_etc }} exists"
+  file:
+    path: "{{ burp_etc }}"
+    state: directory
 
 # Copy burp report configuration file
 - name: set burp-reports.conf file
