@@ -34,8 +34,8 @@ smtp_mode: 'normal'
 smtp_login: ''
 smtp_password: ''
 
-## burp-reports installation packages: 
+## burp-reports installation packages:
 # doc: https://github.com/pablodav/burp_server_reports
 
-burp_reports_pip_packages: 
+burp_reports_pip_packages:
   - burp_reports
