@@ -10,14 +10,16 @@
     path: '/etc/cron.d'
     state: directory
 
-- cron: name='burp-server-reports outdated report'
+- name: cron task for email outdated
+  cron: name='burp-server-reports outdated report'
         job='burp-reports -c {{ burp_report_conf }} --report email_outdated'
         user='{{ burp_conf_user }}'
         cron_file='burp_reports'
         special_time='{{ report_outdated_special_time }}'
         state=present
 
-- cron: name='burp-server-reports inventory report'
+- name: cron task for report inventory
+  cron: name='burp-server-reports inventory report'
         job='burp-reports -c {{ burp_report_conf }} --report inventory -i {{ burp_report_inventory_input }} -o {{ burp_report_inventory_output }}'
         user='{{ burp_conf_user }}'
         cron_file='burp_reports'

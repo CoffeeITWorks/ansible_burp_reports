@@ -9,6 +9,8 @@
     executable: "{{ python_exec }}"
     state: latest
   with_items: "{{ burp_reports_pip_packages }}"
+  tags:
+    - skip_ansible_lint
 
 - name: "Ensure {{ burp_etc }} exists"
   file:
@@ -22,4 +24,4 @@
     dest: '{{ burp_report_conf }}'
     owner: '{{ burp_conf_user }}'
     group: '{{ burp_conf_group }}'
-    mode: 644
+    mode: 0644
