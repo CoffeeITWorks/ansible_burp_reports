@@ -1,0 +1,21 @@
+---
+driver:
+  name: docker
+
+docker:
+  containers:
+
+      - name: ansible_burp2_reports-01
+        image: ubuntu
+        image_version: 'xenial'
+        ansible_groups:
+          - group1
+
+      - name: ansible_burp2_reports-02
+        image: ubuntu
+        image_version: 'trusty'
+        ansible_groups:
+          - group1
+
+verifier:
+  name: testinfra

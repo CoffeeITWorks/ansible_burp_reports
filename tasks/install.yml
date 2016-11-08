@@ -6,9 +6,16 @@
 - name: install role pip packages
   pip:
     name: "{{ item }}"
-    executable: "pip3"
+    executable: "{{ python_exec }}"
     state: latest
   with_items: "{{ burp_reports_pip_packages }}"
+  tags:
+    - skip_ansible_lint
+
+- name: "Ensure {{ burp_etc }} exists"
+  file:
+    path: "{{ burp_etc }}"
+    state: directory
 
 # Copy burp report configuration file
 - name: set burp-reports.conf file
@@ -17,4 +24,4 @@
     dest: '{{ burp_report_conf }}'
     owner: '{{ burp_conf_user }}'
     group: '{{ burp_conf_group }}'
-    mode: 644
+    mode: 0644

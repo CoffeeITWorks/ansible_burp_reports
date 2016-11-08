@@ -6,6 +6,9 @@
     - config_burp_reports_cron
     - test_burp_reports
 
+- include: redhat.yml
+  when: ansible_os_family == "RedHat"
+
 - name: install role packages
   package: name={{ sys_packages| join(',') }} state=present
 
@@ -16,5 +19,6 @@
     - config_burp_reports_cron
 
 - include: reports_tests.yml
+  when: burp_report_test
   tags:
     - test_burp_reports
