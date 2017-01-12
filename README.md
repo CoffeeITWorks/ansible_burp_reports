@@ -1,4 +1,4 @@
-
+[![CircleCI](https://circleci.com/gh/CoffeeITWorks/ansible_burp_reports.svg?style=svg)](https://circleci.com/gh/CoffeeITWorks/ansible_burp_reports)
 
 Getting Started
 ================
