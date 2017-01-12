@@ -1,0 +1,7 @@
+---
+- hosts: localhost
+  remote_user: root
+  vars:
+    burpui_apiurl: 'https://admin:admin@demo.ziirish.me/api/'
+  roles:
+    - ansible_burp_reports

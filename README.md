@@ -1,20 +1,33 @@
-[![Build Status](https://travis-ci.org/CoffeeITWorks/ansible_burp_reports.svg?branch=master)](https://travis-ci.org/CoffeeITWorks/ansible_burp_reports)
+
+
+Getting Started
+================
+
+Check the documentation added in: 
+
+https://github.com/CoffeeITWorks/ansible-generic-help#getting-started
+
 
 Role Name
 =========
-Burp_reports installation and configuration role
+
+ansible_burp_reports deploy and maintenance role.
+
+This roles builds burp_reports version specified on defaults/main.yml. 
+Also configures it to get it working and maintained in a centralized way.
+
 
 Requirements
 --------------
 
 Burp-ui working and var defined in your group_vars/group
-Recommended: ansible_burpui_server and ansible_burp2_server
+Recommended: ansible_burpui_server and ansible_burp2_server from CoffeeITWorks: https://github.com/CoffeeITWorks
 
 Variables
 ---------
 
 Try to not edit the role only for vars, all configurable vars are in defaults/main.yml so all of them can
-be set on group_vars/group or host_vars/host files, so that one defined there will be the used when deployed.
+be set on group_vars/group or host_vars/host files.
 
 First required:
 
@@ -70,14 +83,26 @@ Playbook example for site.yml
       roles:
       - { role: common, tags: ["role_all", "role"] }
       
-environment is not required!, only is an example in case you are behind a firewall. If that's you case, add the proxy var to you group_vars/all: 
-
-    proxy_env:
-      http_proxy: 'http://user:password@hostproxy:8080'
-      https_proxy: 'http://user:password@hostproxy:8080'
-      ftp_proxy: 'http://user:password@hostproxy:8080'
+environment is not required!, only is an example in case you are behind a firewall. If that's you case, add the proxy var to you group_vars/all.
+Example of that vars is at: https://github.com/CoffeeITWorks/ansible-generic-help/blob/master/example1/group_vars/all/vars
 
 License
 -------
 
 MIT
+
+Author Information
+------------------
+
+This role was main developed by Pablo Estigarribia (pablodav at gmail)
+
+Burp backup and restore
+=======================
+
+Main page: http://burp.grke.org/
+
+Burpui
+======
+
+Main page: https://git.ziirish.me/ziirish/burp-ui
+
