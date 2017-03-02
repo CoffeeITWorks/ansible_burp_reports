@@ -8,7 +8,7 @@
     - skip_ansible_lint
 
 - name: Test inventory
-  shell: 'burp-reports -c {{ burp_report_conf }} --report inventory -i {{ burp_report_inventory_input }} -o {{ burp_report_inventory_output }}'
+  command: burp-reports -c {{ burp_report_conf }} --report inventory -i {{ burp_report_inventory_input }} -o {{ burp_report_inventory_output }}
   when: burp_report_inventory_input and burp_report_inventory_output
   changed_when: false
   tags:
