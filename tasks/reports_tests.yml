@@ -1,9 +1,18 @@
 ---
 # Tests tasks for scripts
 
+# TODO: Needs refactor: 
+- name: Ensure output file is writable by user without become
+  file: 
+    state: touch
+    path: "{{ burp_report_inventory_output }}"
+    group: "{{ burp_report_inventory_output_group }}"
+    mode: u=rw,g=rw,o=r
+
 - name: Test burp-reports
   command: burp-reports -c {{ burp_report_conf }} --report outdated
   changed_when: false
+  become: false
   tags:
     - skip_ansible_lint
 
@@ -11,5 +20,6 @@
   command: burp-reports -c {{ burp_report_conf }} --report inventory -i {{ burp_report_inventory_input }} -o {{ burp_report_inventory_output }}
   when: burp_report_inventory_input and burp_report_inventory_output
   changed_when: false
+  become: false
   tags:
     - skip_ansible_lint

@@ -5,12 +5,11 @@
 
 - name: install role pip packages
   pip:
-    name: "{{ item }}"
+    name: "{{ item.name }}"
     executable: "{{ python_exec }}"
-    state: latest
+    state: present
+    version: "{{ item.version }}"
   with_items: "{{ burp_reports_pip_packages }}"
-  tags:
-    - skip_ansible_lint
 
 - name: "Ensure {{ burp_etc }} exists"
   file:

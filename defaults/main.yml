@@ -15,6 +15,7 @@ burp_conf_group: 'root'
 # https://github.com/pablodav/burp_server_reports#usage
 burp_report_inventory_input: None
 burp_report_inventory_output: None
+burp_report_inventory_output_group: adm # default group to allow rw
 
 # Tests tasks
 burp_report_test: false
@@ -38,4 +39,5 @@ smtp_password: ''
 # doc: https://github.com/pablodav/burp_server_reports
 
 burp_reports_pip_packages:
-  - burp_reports
+  - name: burp_reports
+    version: 1.2.4

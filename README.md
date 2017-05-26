@@ -68,6 +68,11 @@ Not really required but you can customize all the following:
     ## burp-reports installation packages: 
     # doc: https://github.com/pablodav/burp_server_reports
 
+    # This example is the variable that setups the burp_reports version:
+    burp_reports_pip_packages:
+    - name: burp_reports
+        version: 1.2.4
+
 Tags
 ----
 
