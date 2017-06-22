@@ -40,4 +40,4 @@ smtp_password: ''
 
 burp_reports_pip_packages:
   - name: burp_reports
-    version: 1.2.4
+    version: 1.2.5
