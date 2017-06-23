@@ -2,6 +2,6 @@
 - hosts: localhost
   remote_user: root
   vars:
-    burpui_apiurl: 'https://admin:admin@demo.ziirish.me/api/'
+    burpui_apiurl: 'https://admin:admin@demo.burp-ui.org/api/'
   roles:
     - ansible_burp_reports
