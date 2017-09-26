@@ -8,6 +8,7 @@ burpui_apiurl: http://admin:admin@localhost:5000/api/
 burp_report_days_outdated: 25
 burp_etc: /etc/burp
 burp_report_conf: "{{ burp_etc }}/burp-reports.conf"
+burp_report_csv_delimiter: ';''
 
 burp_conf_user: 'root'
 burp_conf_group: 'root'
@@ -34,10 +35,46 @@ smtp_port: 25
 smtp_mode: 'normal'
 smtp_login: ''
 smtp_password: ''
+burp_report_smtp_subject: "burp report from {{ ansible_hostname }}"
 
 ## burp-reports installation packages:
 # doc: https://github.com/pablodav/burp_server_reports
 
 burp_reports_pip_packages:
   - name: burp_reports
-    version: 1.2.5
+    version: 1.2.8
+
+# [format_text]
+burp_report_all_column_length: 11
+burp_report_name_length: 15
+
+# [email_inventory]
+burp_report_imap_search: 'TODAY'
+burp_report_imap_port: '993'
+burp_report_imap_folder: 'INBOX'
+burp_report_imap_host: 'localhost'
+burp_report_attachment_save_directory: '/tmp'
+burp_report_imap_password: 'password'
+burp_report_email_subject: 'inventory'
+burp_report_attachment_filename: 'inventory_email.csv'
+burp_report_imap_user: 'test1'
+
+#[inventory_status]
+burp_report_inventory_status: 
+  - "burp_report_in_inventory_updated = ok"
+  - "spare_in_burp = wrong spare in burp"
+  - "spare = spare"
+  - "in_many_servers = duplicated"
+  - "inactive_not_in_burp = ignored inactive"
+  - "inactive_in_burp = wrong not active"
+  - "spare_not_in_burp = ignored spare"
+  - "in_inventory_not_in_burp = absent"
+  - "active = active"
+  - "not_inventory_in_burp = not in inventory"
+
+#[inventory_columns]
+burp_report_inventory_columns:
+  - "server = servidor"
+  - "status = status"
+  - "sub_status = status (detailed)""
+  - "client_name = device name"

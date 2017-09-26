@@ -1,25 +1,22 @@
 [common]
 burpui_apiurl = {{ burpui_apiurl }}
 days_outdated = {{ burp_report_days_outdated }}
-csv_delimiter = ;
+csv_delimiter = {{ burp_report_csv_delimiter }}
 excluded_clients = {{ burp_excluded_clients }}
 
+{% if burp_report_inventory_columns %}
 [inventory_columns]
-server = servidor
-status = status
-sub_status = status (detailed)
-client_name = device name
+{% for l in burp_report_inventory_columns %}
+{{ l }}
+{% endfor %}
+{% endif %}
 
+{% if burp_report_inventory_status %}
 [inventory_status]
-not_inventory_in_burp = not in inventory
-in_many_servers = duplicated
-in_inventory_updated = ok
-spare_not_in_burp = ignored spare
-in_inventory_not_in_burp = absent
-spare_in_burp = wrong spare in burp
-inactive_in_burp = wrong not active
-spare = spare
-active = active
+{% for l in burp_report_inventory_status %}
+{{ l }}
+{% endfor %}
+{% endif %}
 
 [email_notification]
 email_to = {{ burp_report_emails_to }}
@@ -30,3 +27,19 @@ smtp_login = {{ smtp_login }}
 smtp_mode = {{ smtp_mode }}
 smtp_port = {{ smtp_port }}
 foot_notes = {{ burp_report_emails_notes }}
+subject = {{ burp_report_smtp_subject }}
+
+[format_text]
+all_column_length = {{ burp_report_all_column_length }}
+name_length = {{ burp_report_name_length }}
+
+[email_inventory]
+imap_search = {{ burp_report_imap_search }}
+imap_port = {{ burp_report_imap_port }}
+imap_folder = {{ burp_report_imap_folder }}
+imap_host = {{ burp_report_imap_host }}
+attachment_save_directory = {{ burp_report_attachment_save_directory }}
+imap_password = {{ burp_report_imap_password }}
+email_subject = {{ burp_report_email_subject }}
+attachment_filename = {{ burp_report_attachment_filename }}
+imap_user = {{ burp_report_imap_user }}
