@@ -8,7 +8,7 @@ burpui_apiurl: http://admin:admin@localhost:5000/api/
 burp_report_days_outdated: 25
 burp_etc: /etc/burp
 burp_report_conf: "{{ burp_etc }}/burp-reports.conf"
-burp_report_csv_delimiter: ';''
+burp_report_csv_delimiter: ';'
 
 burp_conf_user: 'root'
 burp_conf_group: 'root'
