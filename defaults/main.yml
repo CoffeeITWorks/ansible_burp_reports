@@ -42,7 +42,7 @@ burp_report_smtp_subject: "burp report from {{ ansible_hostname }}"
 
 burp_reports_pip_packages:
   - name: burp_reports
-    version: 1.2.8
+    version: 1.2.8.1
 
 # [format_text]
 burp_report_all_column_length: 11
