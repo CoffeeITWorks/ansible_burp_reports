@@ -3,10 +3,17 @@
 
 # Install burp_reports
 
+- name: upgrade pip 
+  pip:
+    name: "pip"
+    executable: "{{ pip_exec }}"
+    state: present
+    version: ">=9.0.1"
+
 - name: install role pip packages
   pip:
     name: "{{ item.name }}"
-    executable: "{{ python_exec }}"
+    executable: "{{ pip_exec }}"
     state: present
     version: "{{ item.version }}"
   with_items: "{{ burp_reports_pip_packages }}"

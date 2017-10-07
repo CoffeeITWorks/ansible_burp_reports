@@ -5,5 +5,3 @@
 sys_packages:
   - python-pip
   - python-devel
-
-python_exec: pip
