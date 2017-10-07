@@ -8,7 +8,7 @@
     name: "pip"
     executable: "{{ pip_exec }}"
     state: present
-    version: ">=9.0.1"
+    version: "9.0.1"
 
 - name: install role pip packages
   pip:
