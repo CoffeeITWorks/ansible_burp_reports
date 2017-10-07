@@ -1,4 +1,8 @@
 ---
 - hosts: all
+  vars:
+    burpui_standalone: true
   roles:
+    - role: ansible_burp2_server
+    - role: ansible_burpui_server
     - role: ansible_burp_reports

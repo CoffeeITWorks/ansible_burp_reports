@@ -1,0 +1,6 @@
+
+- src: CoffeeITWorks.burp2_server
+  name: ansible_burp2_server
+
+- src: CoffeeITWorks.burpui_server
+  name: ansible_burpui_server
