@@ -5,12 +5,19 @@
 ### BURP REPORT
 burpui_apiurl: http://admin:admin@localhost:5000/api/
 
+# [common]
 burp_report_days_outdated: 25
 burp_etc: /etc/burp
 burp_report_conf: "{{ burp_etc }}/burp-reports.conf"
+burp_report_csv_delimiter: ';'
+# Options: https://docs.python.org/3.5/library/codecs.html#text-encodings
+# use mbcs for ansi on python prior 3.6
+burp_report_csv_encoding: 'utf-8'
 
 burp_conf_user: 'root'
 burp_conf_group: 'root'
+
+pip_exec: pip3
 
 # https://github.com/pablodav/burp_server_reports#usage
 burp_report_inventory_input: None
@@ -24,20 +31,62 @@ burp_report_test: false
 report_outdated_special_time: 'weekly'
 report_inventory_special_time: 'weekly'
 
-burp_report_emails_notes: 'some useful notes to change'
-burp_report_emails_to: root@localhost
-burp_report_emails_from: burpserver@localhost
-burp_excluded_clients: 'agent,monitor'
-
-smtp_relay: 'localhost'
-smtp_port: 25
-smtp_mode: 'normal'
-smtp_login: ''
-smtp_password: ''
-
 ## burp-reports installation packages:
 # doc: https://github.com/pablodav/burp_server_reports
 
 burp_reports_pip_packages:
   - name: burp_reports
-    version: 1.2.5
+    version: 1.3.0
+
+#[inventory_columns]
+burp_report_inventory_columns:
+  - "server = servidor"
+  - "status = status"
+  - "sub_status = status (detailed)"
+  - "client_name = device name"
+
+#[inventory_status]
+burp_report_inventory_status: 
+  - "burp_report_in_inventory_updated = ok"
+  - "spare_in_burp = wrong spare in burp"
+  - "spare = spare"
+  - "in_many_servers = duplicated"
+  - "inactive_not_in_burp = ignored inactive"
+  - "inactive_in_burp = wrong not active"
+  - "spare_not_in_burp = ignored spare"
+  - "in_inventory_not_in_burp = absent"
+  - "active = active"
+  - "not_inventory_in_burp = not in inventory"
+
+#[email_notification]
+burp_report_emails_to: root@localhost
+burp_report_emails_from: burpserver@localhost
+burp_excluded_clients: 'agent,monitor'
+
+burp_report_smtp_server: 'localhost'
+burp_report_smtp_port: 25
+burp_report_smtp_mode: 'normal'
+burp_report_smtp_login: ''
+burp_report_smtp_password: ''
+burp_report_smtp_subject: "burp report from {{ ansible_hostname }}"
+burp_report_emails_notes: 'some useful notes to change'
+
+# [format_text]
+burp_report_all_column_length: 11
+burp_report_name_length: 15
+
+# [email_inventory]
+# TODAY will set today date in
+# format: "SENTON 23-Sep-2017 Subject \"inventory\"" (subject comes from email_subject key)
+# you could filter using the IMAP rules here (check
+# http://www.example-code.com/csharp/imap-search-critera.asp)
+burp_report_imap_search: 'TODAY'
+burp_report_imap_port: '993'
+burp_report_imap_folder: 'INBOX'
+burp_report_imap_host: 'localhost'
+burp_report_attachment_save_directory: '/tmp'
+burp_report_imap_password: 'password'
+burp_report_email_subject: 'inventory'
+burp_report_attachment_filename: 'inventory_email.csv'
+# You can use 'domain\\user'
+burp_report_imap_user: 'test1'

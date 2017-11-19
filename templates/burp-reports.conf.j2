@@ -1,7 +1,8 @@
 [common]
 burpui_apiurl = {{ burpui_apiurl }}
 days_outdated = {{ burp_report_days_outdated }}
-csv_delimiter = ;
+csv_delimiter = {{ burp_report_csv_delimiter }}
+csv_encoding = {{ burp_report_csv_encoding }}
 excluded_clients = {{ burp_excluded_clients }}
 
 [inventory_columns]
@@ -23,10 +24,10 @@ active = active
 
 [email_notification]
 email_to = {{ burp_report_emails_to }}
-smtp_password = {{ smtp_password }}
+smtp_password = {{ burp_report_smtp_password }}
 email_from = {{ burp_report_emails_from }}
-smtp_server = {{ smtp_relay }}
-smtp_login = {{ smtp_login }}
-smtp_mode = {{ smtp_mode }}
-smtp_port = {{ smtp_port }}
+smtp_server = {{ burp_report_smtp_server }}
+smtp_login = {{ burp_report_smtp_login }}
+smtp_mode = {{ burp_report_smtp_mode }}
+smtp_port = {{ burp_report_smtp_port }}
 foot_notes = {{ burp_report_emails_notes }}

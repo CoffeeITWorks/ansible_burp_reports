@@ -1,21 +1,54 @@
 ---
+# Use docker to test on travis
+# Use vagrant to create vms and access full OS on local testing
 driver:
   name: docker
 
+# It will not be used if you don't specify the driver: name: docker (see the beginning of the file)
 docker:
   containers:
 
-      - name: ansible_burp2_reports-01
+      - name: ansible_burp2_ubuntu_latest
         image: ubuntu
-        image_version: 'xenial'
+        image_version: latest
         ansible_groups:
           - group1
 
-      - name: ansible_burp2_reports-02
+      - name: ansible_burp2_ubuntu_trusty
         image: ubuntu
-        image_version: 'trusty'
+        image_version: trusty
         ansible_groups:
           - group1
+
+      - name: ansible_burp2_debian_8
+        image: debian
+        image_version: '8'
+
+      - name: ansible_burp2_debian_9
+        image: debian
+        image_version: '9'
+        ansible_groups:
+          - group_master
+
+      # In docker cannot be tested with centos 7 due to https://github.com/ansible/ansible-modules-core/issues/593
+      - name: ansible_burp2_centos_7
+        image: centos/systemd
+        image_version: latest
+        volume_mounts:
+          - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
+        privileged: True
+        ansible_groups:
+          - group1
+
+      - name: ansible_test-04
+        image: fedora/systemd-systemd
+        image_version: latest
+        volume_mounts:
+          - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
+        privileged: True
 
 verifier:
   name: testinfra
+
+ansible:
+  playbook: playbook.yml
