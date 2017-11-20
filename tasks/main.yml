@@ -1,24 +1,24 @@
 ---
 # file: roles/burp_reports/tasks/main.yml
 
-- include: multi_os.yml
+- include_tasks: multi_os.yml
   tags:
     - config_burp_reports_cron
     - test_burp_reports
 
-- include: redhat.yml
+- include_tasks: redhat.yml
   when: ansible_os_family == "RedHat"
 
 - name: install burp_reports system dependencies
   package: name={{ burp_reports_sys_packages| join(',') }} state=present
 
-- include: install.yml
+- include_tasks: install.yml
 
-- include: cron.yml
+- include_tasks: cron.yml
   tags:
     - config_burp_reports_cron
 
-- include: reports_tests.yml
+- include_tasks: reports_tests.yml
   when: burp_report_test
   tags:
     - test_burp_reports
