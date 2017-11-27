@@ -36,17 +36,17 @@ First required:
 
 Not really required but you can customize all the following: 
 
-
+```yaml
     burp_report_days_outdated: 25
     burp_report_conf: /etc/burp/burp-reports.conf
 
     burp_conf_user: 'root'
     burp_conf_group: 'root'
-    
+
     # https://github.com/pablodav/burp_server_reports#usage
     burp_report_inventory_input: None
     burp_report_inventory_output: None
-    
+
     # Tests tasks
     burp_report_test: false
 
@@ -72,6 +72,57 @@ Not really required but you can customize all the following:
     burp_reports_pip_packages:
     - name: burp_reports
         version: 1.2.4
+```
+
+Optional vars
+-------------
+
+Optional prepare templates and schedule jobs.
+
+```yaml
+burp_reports_nagios_servers:
+  - SERVERNAME
+
+# Optional cron jobs, example with template generated to send status through nsca
+burp_reports_cron_jobs:
+  - name: 'burp-reports inventory nsca'
+    job: '/usr/local/bin/burp-reports-nsca'
+    special_time: "{{ report_inventory_special_time }}"
+
+# Optional generation of nsca scripts
+burp_reports_nsca_scripts:
+  - script: '/usr/local/bin/burp-reports-nsca'
+    command: '/usr/local/bin/burp-reports -c {{ burp_report_conf }} --report inventory -i {{ burp_report_inventory_input }} -o {{ burp_report_inventory_output }} --detail'
+    nagios_service: 'burp_reports_status'
+```
+
+To use it you will need a nagios config service for burp-reports server name, ex:
+
+```cfg
+; https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/objectdefinitions.html#service
+define service {
+        service_description            burp_reports_status
+        host                           YOURBURP-REPORTS-ORIGINATED
+        use                            generic-service
+        passive_checks_enabled         1
+        max_check_attempts             1
+        active_checks_enabled          0
+        notification_interval          60
+        check_freshness                1
+        freshness_threshold            7200       ; 2 hour threshold, without cron execution will execute check_command
+        check_command                  no-burp-reports
+        # set the contact group
+        # contact_groups                 {{ contact_group }}
+        flap_detection_enabled         0
+}
+
+; https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/freshness.html
+
+define command {
+    command_name    no-burp-reports
+    command_line    /usr/local/nagios/libexec/check_dummy 2 "burp-reports was not executed in time"
+}
+```
 
 Tags
 ----
@@ -81,7 +132,6 @@ test_burp_reports: tests commands, all configuration should be already done.
 
 Playbook example for site.yml
 -----------------------------
-
 
     - hosts: servers
       environment: "{{ proxy_env }}"

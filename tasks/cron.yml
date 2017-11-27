@@ -25,7 +25,28 @@
         cron_file='burp_reports'
         special_time='{{ report_inventory_special_time }}'
         state=present
-  when: burp_report_inventory_input and burp_report_inventory_output
+  when: burp_report_inventory_input and burp_report_inventory_output and burp_report_inventory_cron_enabled
+
+- name: disable cron task for report inventory
+  cron: name='burp-server-reports inventory report'
+        job='/usr/local/bin/burp-reports -c {{ burp_report_conf }} --report inventory -i {{ burp_report_inventory_input }} -o {{ burp_report_inventory_output }}'
+        user='{{ burp_conf_user }}'
+        cron_file='burp_reports'
+        special_time='{{ report_inventory_special_time }}'
+        state=absent
+  when: not burp_report_inventory_cron_enabled
+
+- block: 
+  - name: cron task for reports commands
+    cron: 
+      name: "{{ item.name }}"
+      job: "{{ item.job }}"
+      user: "{{ burp_conf_user }}"
+      cron_file: 'burp_reports'
+      special_time: "{{ item.special_time | default(report_inventory_special_time) }}"
+      state: "{{ item.state | default('present') }}"
+    with_items: "{{ burp_reports_cron_jobs }}"
+  when: burp_reports_cron_jobs
 
 # Removed for compatibility with xenial
 # Enable cron to start up on boot

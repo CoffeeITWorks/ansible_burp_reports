@@ -1,0 +1,16 @@
+---
+
+- block: 
+  - name: nsca | create script graylog2-alert.sh
+    template:
+      dest: "{{ item.script }}"
+      src: "burp-reports-nsca-cron.j2"
+      mode: u=rwx,g=rx,o=rx
+    with_items: "{{ burp_reports_nsca_scripts }}"
+  when: burp_reports_nsca_scripts
+
+- name: nsca | Install nsca client
+  package: 
+    name: "{{ burp_reports_nsca_client_package }}"
+    state: present
+  when: burp_reports_install_nsca_client

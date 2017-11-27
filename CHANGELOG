@@ -1,0 +1,5 @@
+v1.3.1:
+    * fixes in upgrades for config of burp-reports
+    * included new burp_reports_cron_jobs, burp_reports_nsca_scripts, burp_reports_nagios_servers, burp_reports_install_nsca_client
+    * adding options to schedule cron jobs in free form
+    * adding template script to run burp-reports with nsca notification

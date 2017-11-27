@@ -11,8 +11,10 @@ burp_etc: /etc/burp
 burp_report_conf: "{{ burp_etc }}/burp-reports.conf"
 burp_report_csv_delimiter: ';'
 # Options: https://docs.python.org/3.5/library/codecs.html#text-encodings
-# use mbcs for ansi on python prior 3.6
+# use mbcs for ansi on python prior 3.6 only on windows
+# this doesn't care anymore since invpy_libs 0.4.2 fixed issues with different encodings
 burp_report_csv_encoding: 'utf-8'
+burp_excluded_clients: 'agent,monitor'
 
 burp_conf_user: 'root'
 burp_conf_group: 'root'
@@ -22,6 +24,7 @@ pip_exec: pip3
 # https://github.com/pablodav/burp_server_reports#usage
 burp_report_inventory_input: None
 burp_report_inventory_output: None
+burp_report_inventory_cron_enabled: false
 burp_report_inventory_output_group: adm # default group to allow rw
 
 # Tests tasks
@@ -31,12 +34,20 @@ burp_report_test: false
 report_outdated_special_time: 'weekly'
 report_inventory_special_time: 'weekly'
 
+# See README to setup these vars
+burp_reports_nagios_servers: None
+burp_reports_cron_jobs: None
+burp_reports_nsca_scripts: None
+
+burp_reports_install_nsca_client: false
+burp_reports_nsca_client_package: 'nsca-client'
+
 ## burp-reports installation packages:
 # doc: https://github.com/pablodav/burp_server_reports
 
 burp_reports_pip_packages:
   - name: burp_reports
-    version: 1.3.1
+    version: 1.3.3
 
 #[inventory_columns]
 burp_report_inventory_columns:
@@ -61,8 +72,6 @@ burp_report_inventory_status:
 #[email_notification]
 burp_report_emails_to: root@localhost
 burp_report_emails_from: burpserver@localhost
-burp_excluded_clients: 'agent,monitor'
-
 burp_report_smtp_server: 'localhost'
 burp_report_smtp_port: 25
 burp_report_smtp_mode: 'normal'
@@ -88,5 +97,5 @@ burp_report_attachment_save_directory: '/tmp'
 burp_report_imap_password: 'password'
 burp_report_email_subject: 'inventory'
 burp_report_attachment_filename: 'inventory_email.csv'
-# You can use 'domain\\user'
+# You can use 'domain\user'
 burp_report_imap_user: 'test1'

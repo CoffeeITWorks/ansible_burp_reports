@@ -1,0 +1,43 @@
+#!/bin/bash
+ 
+# nagios servers to notify
+NAGIOS_SERVERS="{% for server in burp_reports_nagios_servers %}{{ server }} {% endfor %}"
+
+LOGFOLDER="/var/log/burp"
+LOG_FILE="${LOGFOLDER}/burp-reports-nsca.log"
+LOG_ENABLE=0
+notes=""
+STATUS=2
+
+SERVICE={{ item.nagios_service }}
+
+logging() {
+    local msg="$1"
+    if [ ! -z $LOG_ENABLE ]; then
+        echo "${msg}" >> $LOG_FILE
+    fi
+}
+
+main() {
+    local tmp_file=`mktemp`
+
+    # Execute burp-reports
+    if {{ item.command }}; then
+        STATUS=0
+        NOTES="SUCCESSFUL: {{ item.command }}"
+    else
+        STATUS=2
+        NOTES="FAILED: {{ item.command }}"
+    fi
+
+    echo `hostname | tr "[:lower:]" "[:upper:]"`";$SERVICE;$STATUS;$NOTES" > $tmp_file
+    local message=`cat $tmp_file`
+    logging "message: ${message}"
+    local nagios_server
+    for nagios_server in $NAGIOS_SERVERS; do
+        /usr/sbin/send_nsca -d ';' -H $nagios_server < $tmp_file
+    done
+    rm -f $tmp_file
+}
+
+main "$@"
