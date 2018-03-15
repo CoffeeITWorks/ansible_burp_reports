@@ -92,7 +92,7 @@ burp_reports_cron_jobs:
 # Optional generation of nsca scripts
 burp_reports_nsca_scripts:
   - script: '/usr/local/bin/burp-reports-nsca'
-    command: '/usr/local/bin/burp-reports -c {{ burp_report_conf }} --report inventory -i {{ burp_report_inventory_input }} -o {{ burp_report_inventory_output }} --detail'
+    command: '/usr/local/bin/burp-reports -c {{ burp_report_conf }} --report inventory -i {{ burp_report_inventory_input }} -o {{ burp_report_inventory_output }}'
     nagios_service: 'burp_reports_status'
 ```
 

@@ -1,3 +1,6 @@
+v1.4.0:
+    * Update burp_server_reports to 1.4.0
+    * Update readme and remove cron job with --details example in https://github.com/CoffeeITWorks/ansible_burp_reports#optional-vars
 v1.3.1:
     * fixes in upgrades for config of burp-reports
     * included new burp_reports_cron_jobs, burp_reports_nsca_scripts, burp_reports_nagios_servers, burp_reports_install_nsca_client
