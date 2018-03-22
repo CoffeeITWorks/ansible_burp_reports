@@ -45,7 +45,7 @@ Not really required but you can customize all the following:
 
     # https://github.com/pablodav/burp_server_reports#usage
     burp_report_inventory_input: None
-    burp_report_inventory_output: None
+    burp_report_inventory_output: None # could be for example /var/www/html/inventory_central.csv
 
     # Tests tasks
     burp_report_test: false

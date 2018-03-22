@@ -10,6 +10,18 @@
     path: '/etc/cron.d'
     state: directory
 
+- name: cronenv prepare SHELL env var to run tasks
+  cronvar:
+    name: SHELL
+    value: /bin/bash
+    cron_file: 'burp_reports'
+
+- name: cronenv prepare LANG env var to run tasks
+  cronvar:
+    name: LANG
+    value: en_US.UTF-8
+    cron_file: 'burp_reports'
+
 - name: cron task for email outdated
   cron: name='burp-server-reports outdated report'
         job='/usr/local/bin/burp-reports -c {{ burp_report_conf }} --report email_outdated'
