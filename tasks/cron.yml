@@ -55,7 +55,11 @@
       job: "{{ item.job }}"
       user: "{{ burp_conf_user }}"
       cron_file: 'burp_reports'
-      special_time: "{{ item.special_time | default(report_inventory_special_time) }}"
+      day: "{{ item.day | default('*') }}"
+      minute: "{{ item.minute | default('*/10') }}"
+      hour: "{{ item.hour | default('*') }}"
+      month: "{{ item.month | default('*') }}"
+      weekday: "{{ item.weekday | default('*') }}"
       state: "{{ item.state | default('present') }}"
     with_items: "{{ burp_reports_cron_jobs }}"
   when: burp_reports_cron_jobs

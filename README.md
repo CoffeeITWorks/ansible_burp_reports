@@ -84,10 +84,15 @@ burp_reports_nagios_servers:
   - SERVERNAME
 
 # Optional cron jobs, example with template generated to send status through nsca
+# http://docs.ansible.com/ansible/latest/modules/cron_module.html
 burp_reports_cron_jobs:
   - name: 'burp-reports inventory nsca'
     job: '/usr/local/bin/burp-reports-nsca'
-    special_time: "{{ report_inventory_special_time }}"
+    day: "*"
+    hour: "*"
+    minute: "*/10"
+    month: "*"
+    weekday: "*"
 
 # Optional generation of nsca scripts
 burp_reports_nsca_scripts:
