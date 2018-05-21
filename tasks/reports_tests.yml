@@ -13,8 +13,8 @@
   when: burp_report_inventory_input and burp_report_inventory_output
   changed_when: false
   become: false
-  environment: 
-      http_proxy: ""
-      https_proxy: ""
+  environment:
+    http_proxy: ""
+    https_proxy: ""
   tags:
     - skip_ansible_lint
