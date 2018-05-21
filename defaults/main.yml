@@ -25,7 +25,7 @@ pip_exec: pip3
 burp_report_inventory_input: None
 burp_report_inventory_output: None
 burp_report_inventory_cron_enabled: false
-burp_report_inventory_output_group: adm # default group to allow rw
+burp_report_inventory_output_group: adm  # default group to allow rw
 
 # Tests tasks
 burp_report_test: false
@@ -49,15 +49,15 @@ burp_reports_pip_packages:
   - name: burp_reports
     version: 1.4.1
 
-#[inventory_columns]
+# [inventory_columns]
 burp_report_inventory_columns:
   - "server = servidor"
   - "status = status"
   - "sub_status = status (detailed)"
   - "client_name = device name"
 
-#[inventory_status]
-burp_report_inventory_status: 
+# [inventory_status]
+burp_report_inventory_status:
   - "burp_report_in_inventory_updated = ok"
   - "spare_in_burp = wrong spare in burp"
   - "spare = spare"
@@ -69,7 +69,7 @@ burp_report_inventory_status:
   - "active = active"
   - "not_inventory_in_burp = not in inventory"
 
-#[email_notification]
+# [email_notification]
 burp_report_emails_to: root@localhost
 burp_report_emails_from: burpserver@localhost
 burp_report_smtp_server: 'localhost'

@@ -3,7 +3,7 @@
 - name: redhat | install EPEL release package for RHEL
   yum:
     name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm"
-    state: latest
+    state: present
   when: ansible_distribution == 'Red Hat Enterprise Linux'
 
 - name: redhat | install EPEL release package for Centos
@@ -12,11 +12,12 @@
     state: present
   when: ansible_distribution == 'CentOS'
 
-- set_fact:
+- name: set var ius_distribution_abbrev
+  set_fact:
     ius_distribution_abbrev: "{{ (ansible_distribution == 'CentOS') | ternary('centos', 'rhel') }}"
 
 # Must be state: present due to deficiency in ansible. See:
-# https://github.com/ansible/ansible-modules-core/issues/948 
+# https://github.com/ansible/ansible-modules-core/issues/948
 - name: redhat | install IUS release package
   yum:
     name: "https://{{ ius_distribution_abbrev }}{{ ansible_distribution_major_version }}.iuscommunity.org/ius-release.rpm"

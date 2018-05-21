@@ -5,6 +5,9 @@ driver:
   name: docker
 lint:
   name: yamllint
+  options:
+    config-file: molecule/default/lint.yaml
+  
 platforms:
 
   - name: ansible_test-01
