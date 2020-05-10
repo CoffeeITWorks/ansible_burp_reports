@@ -1,3 +1,5 @@
+v1.5.2:
+    * fixes for molecule v3
 v1.5.1:
     * Update burp_server_reports to 1.4.2
 v1.5.0:
