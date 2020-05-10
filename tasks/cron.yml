@@ -62,7 +62,7 @@
         weekday: "{{ item.weekday | default('*') }}"
         state: "{{ item.state | default('present') }}"
       with_items: "{{ burp_reports_cron_jobs }}"
-  when: burp_reports_cron_jobs
+  when: burp_reports_cron_jobs | bool
 
 # Removed for compatibility with xenial
 # Enable cron to start up on boot

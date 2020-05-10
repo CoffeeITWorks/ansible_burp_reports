@@ -27,8 +27,13 @@
 - name: redhat | set pip3 packages for redhat and centos
   set_fact:
     burp_reports_sys_packages:
-      - python34
-      - python34-devel
-      - python34-pip
-      - redhat-rpm-config
+        - python36
+        - python36-devel
+        - python36-setuptools
+        - python36-pip
+        - redhat-rpm-config
+        - openssl-devel
+        - libffi-devel
+        - gcc
+        - cronie
   when: ansible_distribution != "Fedora"
