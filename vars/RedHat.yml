@@ -5,5 +5,7 @@
 burp_reports_sys_packages:
   - python3-pip
   - python3-devel
+  - redhat-rpm-config
+  - cronie
 
 python_exec: pip3
