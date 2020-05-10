@@ -7,7 +7,7 @@
       src: "burp-reports-nsca-cron.j2"
       mode: u=rwx,g=rx,o=rx
     with_items: "{{ burp_reports_nsca_scripts }}"
-  when: burp_reports_nsca_scripts
+  when: burp_reports_nsca_scripts | bool
 
 - name: nsca | Install nsca client
   package:
