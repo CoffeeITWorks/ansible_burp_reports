@@ -7,8 +7,11 @@
 
 - name: ensure /etc/cron.d exists
   file:
-    path: '/etc/cron.d'
+    path: /etc/cron.d
     state: directory
+    owner: root
+    group: "{{ root_group }}"
+    mode: '0755'
 
 - name: cronenv prepare SHELL env var to run tasks
   cronvar:
