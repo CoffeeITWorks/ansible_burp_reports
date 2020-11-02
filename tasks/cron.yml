@@ -18,40 +18,46 @@
     name: SHELL
     value: /bin/bash
     cron_file: 'burp_reports'
+  changed_when: false
 
 - name: cronenv prepare LANG env var to run tasks
   cronvar:
     name: LANG
     value: en_US.UTF-8
     cron_file: 'burp_reports'
+  changed_when: false
 
 - name: cron task for email outdated
-  cron: name='burp-server-reports outdated report'
-        job='/usr/local/bin/burp-reports -c {{ burp_report_conf }} --report email_outdated'
-        user='{{ burp_conf_user }}'
-        cron_file='burp_reports'
-        special_time='{{ report_outdated_special_time }}'
-        state=present
+  cron: 
+    name: 'burp-server-reports outdated report'
+    job: "/usr/local/bin/burp-reports -c {{ burp_report_conf }} --report email_outdated"
+    user: "{{ burp_conf_user }}"
+    cron_file: 'burp_reports'
+    special_time: "{{ report_outdated_special_time }}"
+    state: present
 
 - name: cron task for report inventory
-  cron: name='burp-server-reports inventory report'
-        job='/usr/local/bin/burp-reports -c {{ burp_report_conf }} --report inventory -i {{ burp_report_inventory_input }} -o {{ burp_report_inventory_output }}'
-        user='{{ burp_conf_user }}'
-        cron_file='burp_reports'
-        special_time='{{ report_inventory_special_time }}'
-        state=present
+  cron: 
+    name: 'burp-server-reports inventory report'
+    job: "/usr/local/bin/burp-reports -c {{ burp_report_conf }} --report inventory -i {{ burp_report_inventory_input }} -o {{ burp_report_inventory_output }}"
+    user: "{{ burp_conf_user }}"
+    cron_file: 'burp_reports'
+    special_time: "{{ report_inventory_special_time }}"
+    state: present
   when: burp_report_inventory_input and burp_report_inventory_output and burp_report_inventory_cron_enabled
 
 - name: disable cron task for report inventory
-  cron: name='burp-server-reports inventory report'
-        job='/usr/local/bin/burp-reports -c {{ burp_report_conf }} --report inventory -i {{ burp_report_inventory_input }} -o {{ burp_report_inventory_output }}'
-        user='{{ burp_conf_user }}'
-        cron_file='burp_reports'
-        special_time='{{ report_inventory_special_time }}'
-        state=absent
+  cron: 
+    name: 'burp-server-reports inventory report'
+    job: "/usr/local/bin/burp-reports -c {{ burp_report_conf }} --report inventory -i {{ burp_report_inventory_input }} -o {{ burp_report_inventory_output }}"
+    user: "{{ burp_conf_user }}"
+    cron_file: 'burp_reports'
+    special_time: "{{ report_inventory_special_time }}"
+    state: absent
   when: not burp_report_inventory_cron_enabled
 
-- block:
+- name: block cron task for reports commands
+  block:
     - name: cron task for reports commands
       cron:
         name: "{{ item.name }}"
