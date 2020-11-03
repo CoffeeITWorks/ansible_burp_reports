@@ -26,6 +26,7 @@ burp_report_inventory_input: None
 burp_report_inventory_output: None
 burp_report_inventory_cron_enabled: false
 burp_report_inventory_output_group: adm  # default group to allow rw
+root_group: "root"
 
 # Tests tasks
 burp_report_test: false
