@@ -1,3 +1,5 @@
+v1.6.0:
+    * Fixes on molecule v4 tests and latest galaxy meta compatibility
 v1.5.2:
     * fixes for molecule v3
 v1.5.1:

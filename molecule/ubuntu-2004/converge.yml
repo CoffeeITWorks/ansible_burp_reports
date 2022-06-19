@@ -1,0 +1,9 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    burpui_apiurl: https://admin:admin@demo.burp-ui.org/api/
+  tasks:
+    - name: Include ansible_burp_reports
+      include_role: 
+        name: ansible_burp_reports

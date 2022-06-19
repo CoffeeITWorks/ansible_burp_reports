@@ -1,4 +1,3 @@
----
 dependency:
   name: galaxy
   options:
@@ -9,9 +8,9 @@ driver:
   name: docker
 platforms:
 
-  - name: ansible_burp_reports-01
-    image: "geerlingguy/docker-ubuntu1804-ansible:latest"
-    #privileged: True
+  - name: ansible_burp2_server-01
+    image: "docker.io/geerlingguy/docker-ubuntu2004-ansible:latest"
+    privileged: True
     command: /sbin/init
     pre_build_image: true
     capabilities:
@@ -21,33 +20,6 @@ platforms:
       - /tmp
     volumes:
       - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
-    groups:
-      - group1
-
-  - name: ansible_burp_reports-02
-    image: "geerlingguy/docker-debian9-ansible"
-    #privileged: True
-    command: /sbin/init
-    pre_build_image: true
-    capabilities:
-      - SYS_ADMIN
-    tmpfs:
-      - /run
-      - /tmp
-    volumes:
-      - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
-    groups:
-      - group1
-
-  - name: ansible_burp_reports-03
-    image: docker.io/pycontribs/centos:7
-    pre_build_image: true
-    command: /sbin/init
-    capabilities:
-      - SYS_ADMIN
-    volumes:
-      - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
-    #privileged: True
     groups:
       - group1
 
@@ -55,7 +27,10 @@ provisioner:
   name: ansible
   config_options:
     defaults:
-      callback_whitelist: profile_tasks
+      callbacks_enabled: profile_tasks
+    ssh_connection:
+      pipelining: true
+      ssh_args: -o ControlMaster=auto -o ControlPersist=60s
   inventory:
     group_vars:
       master:
@@ -65,3 +40,8 @@ provisioner:
           - name: client_to_remove
           - name: other_client_to_remove
         burp_server_port_per_operation_bool: true
+    host_vars:
+      ansible_burp2_server-02:
+        burp_sv_server_user: 'burp'
+verifier:
+  name: ansible

@@ -1,0 +1,65 @@
+# https://thedatabaseme.de/2022/01/17/automated-testing-your-ansible-role-with-molecule-and-github-actions/
+
+name: Molecule pipeline test
+
+on: 
+  push:
+    branches-ignore:
+      - "master"
+    tags-ignore:
+      - "*"
+  pull_request:
+  pull_request_review:
+
+jobs:
+  molecule:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # Better to use one scenario per OS for faster performance and easier debugging
+        scenario:
+          - ubuntu-2004
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          path: "${{ github.repository }}"
+      
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      
+      - name: Install dependencies.
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install yamllint ansible-lint ansible "molecule[lint,docker]"
+      
+      - name: Install Galaxy dependencies.
+        run: ansible-galaxy collection install community.docker
+      
+      - name: check molecule version
+        run: molecule --version
+
+      - name: Run molecule converge
+        run: "molecule converge --scenario-name ${{ matrix.scenario }}"
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
+        working-directory: "${{ github.repository }}"
+
+      - name: Run molecule syntax
+        run: "molecule syntax --scenario-name ${{ matrix.scenario }}"
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
+        working-directory: "${{ github.repository }}"
+
+      - name: Run molecule idempotence
+        run: "molecule idempotence --scenario-name ${{ matrix.scenario }}"
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
+        working-directory: "${{ github.repository }}"
