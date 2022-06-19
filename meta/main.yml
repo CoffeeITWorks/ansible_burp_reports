@@ -1,6 +1,7 @@
 ---
 galaxy_info:
-  author: "Pablo Estigarribia"
+  author: "coffeeitworks"
+  role_name: ansible_burp_reports
   company: coffeeITWorks
   description: ansible role to deploy and maintain burp_server_reports
 
